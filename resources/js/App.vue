@@ -9,7 +9,3 @@
         </component>
     </transition>
 </template>
-
-<style lang="scss">
-@import "../scss/App.scss";
-</style>
