@@ -1,30 +1,28 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-export const useAuthStore = defineStore({
-    id: 'user',
-    state: () => ({
-        loggedIn: localStorage.getItem("token") ? true : false,
-        user: null,
-    }),
+export const useAuthStore = defineStore("auth", {
+  state: () => ({
+    loggedIn: localStorage.getItem("token") ? true : false,
+    user: null,
+  }),
 
-    getters: {},
+  getters: {},
 
-    actions: {
-        async login(credentials) {
-            await axios.get("sanctum/csrf-cookie");
+  actions: {
+    async login(credentials) {
+      await axios.get("sanctum/csrf-cookie");
 
-            const response = (await axios.post("api/login", credentials)).data;
+      const response = (await axios.post("api/login", credentials)).data;
 
-            if (response) {
-                const token = `Bearer ${response.token}`;
+      if (response) {
+        const token = `Bearer ${response.token}`;
 
-                localStorage.setItem("token", token);
-                axios.defaults.headers.common["Authorization"] = token;
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = token;
 
-                await this.fetchUser();
-            }
-        }
+        await this.ftechUser();
+      }
     },
 
     async logout() {
@@ -42,4 +40,5 @@ export const useAuthStore = defineStore({
 
       this.loggedIn = true;
     },
-})
+  },
+});

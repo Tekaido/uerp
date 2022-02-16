@@ -5,7 +5,7 @@ export default {
     config.globalProperties.$auth = useAuthStore();
 
     if (useAuthStore().loggedIn) {
-      useAuthStore().ftechUser();
+      useAuthStore().fetchUser();
     }
   },
 };

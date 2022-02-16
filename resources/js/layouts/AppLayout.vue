@@ -85,7 +85,7 @@ export default {
                 this.mobileMenuActive = !this.mobileMenuActive;
             }
 
-            event.preventDefault();
+            preventDefault();
         },
         onSidebarClick() {
             this.menuClick = true;

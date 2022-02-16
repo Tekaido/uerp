@@ -22,6 +22,12 @@ const routes = [
     name: "login",
     component: () => import("./pages/Login"),
     beforeEnter: redirectToHomeOnLoggedIn,
+    },
+    {
+    path: "/logout",
+    name: "logout",
+    component: () => import("./pages/Logout"),
+    meta: { requireAuth: true },
   },
 ];
 

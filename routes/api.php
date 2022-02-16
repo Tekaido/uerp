@@ -19,5 +19,11 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get(
+        '/me',
+        function () {
+            return 'ok';
+        }
+    );
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 });
