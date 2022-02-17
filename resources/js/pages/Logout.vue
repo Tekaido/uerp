@@ -6,11 +6,11 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { onMounted } from "@vue/runtime-core";
-import { useAuthStore } from "../stores/useAuth";
+import { useRouter } from 'vue-router';
+import { onMounted } from '@vue/runtime-core';
+import { useAuthStore } from '../stores/useAuth';
 const auth = useAuthStore();
 const router = useRouter();
-document.title = `Please wait...`;
-onMounted(() => auth.logout().then(() => router.push({ name: "login" })));
+document.title = `uERP | Please wait...`;
+onMounted(() => auth.logout().then(() => router.push({ name: 'login' })));
 </script>

@@ -1,10 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { useAuthStore } from "./stores/useAuth";
+import { useAuthStore } from './stores/useAuth';
 import Dashboard from './pages/Dashboard.vue';
+import Clients from './pages/Clients.vue';
+import Billing from './pages/Billing.vue';
+import Accounting from './pages/Accounting.vue';
+import Profile from './pages/Account/Profile.vue';
 
 const redirectToHomeOnLoggedIn = (to, from, next) => {
-  if (useAuthStore().loggedIn) next({ name: "dashboard" });
-  else next();
+    if (useAuthStore().loggedIn) next({ name: 'dashboard' });
+    else next();
 };
 
 const routes = [
@@ -13,22 +17,62 @@ const routes = [
         name: 'dashboard',
         component: Dashboard,
         meta: {
-            layout: "loggedIn",
+            layout: 'loggedIn',
             requireAuth: true,
         },
     },
     {
-    path: "/login",
-    name: "login",
-    component: () => import("./pages/Login"),
-    beforeEnter: redirectToHomeOnLoggedIn,
+        path: '/clients',
+        name: 'clients',
+        component: Clients,
+        meta: {
+            layout: 'loggedIn',
+            requireAuth: true,
+        },
     },
     {
-    path: "/logout",
-    name: "logout",
-    component: () => import("./pages/Logout"),
-    meta: { requireAuth: true },
-  },
+        path: '/billing',
+        name: 'billing',
+        component: Billing,
+        meta: {
+            layout: 'loggedIn',
+            requireAuth: true,
+        },
+    },
+    {
+        path: '/accounting',
+        name: 'accounting',
+        component: Accounting,
+        meta: {
+            layout: 'loggedIn',
+            requireAuth: true,
+        },
+    },
+    {
+        path: '/account/profile',
+        name: 'profile',
+        component: Profile,
+        meta: {
+            layout: 'loggedIn',
+            requireAuth: true,
+        },
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('./pages/Login'),
+        beforeEnter: redirectToHomeOnLoggedIn,
+    },
+    {
+        path: '/logout',
+        name: 'logout',
+        component: () => import('./pages/Logout'),
+        meta: { requireAuth: true },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('./pages/Misc/404.vue'),
+    },
 ];
 
 const router = createRouter({
@@ -38,9 +82,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth && !useAuthStore().loggedIn) {
-        next({ name: "login" });
-    }
-    else {
+        next({ name: 'login' });
+    } else {
         next();
     }
 });

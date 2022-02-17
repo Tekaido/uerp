@@ -6,10 +6,11 @@ import 'prismjs/themes/prism-coy.css';
 import '../scss/layout.scss';
 
 import { createApp, reactive } from 'vue';
-import { pinia } from './stores'
+import pinia from './stores';
 import VueAxios from 'vue-axios';
 import router from './router';
 import App from './App.vue';
+
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -69,7 +70,7 @@ import Rating from 'primevue/rating';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import SelectButton from 'primevue/selectbutton';
-import ScrollPanel from 'primevue/scrollpanel'
+import ScrollPanel from 'primevue/scrollpanel';
 import ScrollTop from 'primevue/scrolltop';
 import Slider from 'primevue/slider';
 import Sidebar from 'primevue/sidebar';
@@ -102,7 +103,7 @@ import loggedInLayout from './layouts/AppLayout.vue';
 import axios from './utils/axios';
 import auth from './utils/auth';
 
-router.beforeEach(function(to, from, next) {
+router.beforeEach(function (to, from, next) {
     window.scrollTo(0, 0);
     next();
 });
@@ -119,14 +120,13 @@ app.use(auth);
 app.use(router);
 app.use(VueAxios, axios);
 
-
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 app.directive('code', CodeHighlight);
 app.directive('badge', BadgeDirective);
 
-app.component("default", defaultLayout);
-app.component("loggedIn", loggedInLayout);
+app.component('default', defaultLayout);
+app.component('loggedIn', loggedInLayout);
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);
 app.component('AutoComplete', AutoComplete);

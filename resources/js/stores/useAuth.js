@@ -1,44 +1,42 @@
-import { defineStore } from "pinia";
-import axios from "axios";
+import { defineStore } from 'pinia';
+import axios from 'axios';
 
-export const useAuthStore = defineStore("auth", {
-  state: () => ({
-    loggedIn: localStorage.getItem("token") ? true : false,
-    user: null,
-  }),
+export const useAuthStore = defineStore('auth', {
+    state: () => ({
+        loggedIn: localStorage.getItem('token') ? true : false,
+        user: '',
+    }),
 
-  getters: {},
+    getters: {},
 
-  actions: {
-    async login(credentials) {
-      await axios.get("sanctum/csrf-cookie");
+    actions: {
+        async login(credentials) {
+            await axios.get('sanctum/csrf-cookie');
 
-      const response = (await axios.post("api/login", credentials)).data;
+            const response = (await axios.post('api/login', credentials)).data;
 
-      if (response) {
-        const token = `Bearer ${response.token}`;
+            if (response) {
+                const token = `Bearer ${response.token}`;
 
-        localStorage.setItem("token", token);
-        axios.defaults.headers.common["Authorization"] = token;
+                localStorage.setItem('token', token);
+                axios.defaults.headers.common['Authorization'] = token;
 
-        await this.ftechUser();
-      }
+                await this.fetchUser();
+            }
+        },
+
+        async logout() {
+            const response = (await axios.post('api/logout')).data;
+
+            if (response) {
+                localStorage.removeItem('token');
+                this.$reset();
+            }
+        },
+
+        async fetchUser() {
+            this.user = (await axios.get('api/me')).data.data;
+            this.loggedIn = true;
+        },
     },
-
-    async logout() {
-      const response = (await axios.post("api/logout")).data;
-
-      if (response) {
-        localStorage.removeItem("token");
-
-        this.$reset();
-      }
-    },
-
-    async fetchUser() {
-      this.user = (await axios.get("api/me")).data;
-
-      this.loggedIn = true;
-    },
-  },
 });
