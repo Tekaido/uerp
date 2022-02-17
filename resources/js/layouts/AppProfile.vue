@@ -7,7 +7,7 @@
             <span class="username">{{ authStore.user.name }} {{ authStore.user.surname }}</span>
             <i class="pi pi-fw pi-cog"></i>
         </button>
-        <transition name="layout-submenu-wrapper">
+        <Transition name="layout-submenu-wrapper">
             <ul v-show="expanded">
                 <li>
                     <button class="p-link" @click="$router.push('/account/profile')"><i class="pi pi-fw pi-user"></i><span>Account</span></button>
@@ -19,7 +19,7 @@
                     <button class="p-link" @click="$router.push('logout')"><i class="pi pi-fw pi-power-off"></i><span> Logout</span></button>
                 </li>
             </ul>
-        </transition>
+        </Transition>
     </div>
 </template>
 
